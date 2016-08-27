@@ -8,7 +8,7 @@ import random
 import time
 
 DISPLAY = pi3d.Display.create(x=20, y=20, w=1920,h=1080,background=(0.0, 0.0, 0.1, 1.0))
-light = pi3d.Light(lightpos=(-10.0, 4.0, 10.0), lightcol=(3.0, 3.0, 2.0), lightamb=(0.5, 0.5, 0.7), is_point=True)
+pi3d.Light(lightpos=(-10.0, 4.0, 10.0), lightcol=(3.0, 3.0, 2.0), lightamb=(0.5, 0.5, 0.7), is_point=True)
 camera = pi3d.Camera()
 
 EDGE_SIZE = 32
@@ -23,9 +23,6 @@ DEPTH = EDGE_SIZE
 
 angle=0.0
 delta=0.5
-
-counter = 0.0
-counter_delta = 1
 
 matrix = Matrix(WIDTH, HEIGHT, DEPTH)
 

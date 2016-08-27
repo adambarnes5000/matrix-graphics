@@ -3,9 +3,14 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import pi3d
 import math
 
+
+CUBE=0
+SPHERE=1
+
 class Matrix:
     
-    def __init__(self, width=None,height=None, depth=None, edges_size=12):
+    def __init__(self, width=None,height=None, depth=None, edges_size=12, shape=SPHERE):
+        self.shape_type = shape
         self.height, self.width, self.depth = edges_size, edges_size, edges_size
         if width:
             self.width = width
@@ -17,6 +22,7 @@ class Matrix:
         self.matrix = self.create_matrix()
         self.shader = pi3d.Shader("uv_light")
         self.coffimg = pi3d.Texture("textures/COFFEE.PNG")
+
         
     def create_matrix(self):
         matrix=[]
@@ -33,8 +39,10 @@ class Matrix:
         return matrix
 
     def create_shape(self,x,y,z):
-        #shape = pi3d.Cuboid(x=(x-self.width/2),y=(y-self.height/2),z=(z - self.height / 2))
-        shape = pi3d.Sphere(x=(x - self.width / 2), y=(y - self.height / 2), z=(z - self.height / 2), radius=0.5)
+        if self.shape_type==CUBE:
+            shape = pi3d.Cuboid(x=(x-self.width/2),y=(y-self.height/2),z=(z - self.height / 2))
+        if self.shape_type == SPHERE:
+            shape = pi3d.Sphere(x=(x - self.width / 2), y=(y - self.height / 2), z=(z - self.height / 2), radius=0.5)
         self.set_material(shape, x, y, z)
         return shape
     
@@ -55,7 +63,7 @@ class Matrix:
         dy = (self.height / 2.0) - y
         dz = (self.depth / 2.0) - z
         d = math.sqrt(dx*dx+dy*dy+dz*dz)
-        shape.set_material((abs(math.sin(x/2.0)),abs(math.sin(y/2.0)),abs(math.sin(z/10.0))))
+        shape.set_material((abs(math.sin(x/2.0)),abs(math.sin(d/10.0)),abs(math.sin(z/10.0))))
         #c = 1.0-d/self.max_dist
         #shape.set_material((c,c,c))
 
